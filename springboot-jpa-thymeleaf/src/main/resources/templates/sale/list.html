@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>userList</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}"></link>
+</head>
+<body class="container">
+<br/>
+<h1>售货列表</h1>
+<br/><br/>
+<div class="with:80%">
+    <div class="col-sm-2 control-label">
+        <a href="/toAdd" th:href="@{/toadd}" class="btn btn-info">add</a>
+    </div>
+    <div><form class="form-horizontal"   th:action="@{/getSale}"  method="post">
+       审核状态: <select name="shenhe">
+            <option value="">请选择</option>
+            <option value="0">未审核</option>
+            <option value="1">已审核</option>
+        </select>
+        登记状态: <select name="dengji">
+        <option value="">请选择</option>
+        <option value="0">未登记</option>
+        <option value="1">已登记</option>
+    </select>
+        <input/>至<input/>
+        客户名称:<input name="custom"/>
+        <input  type="submit" value="查询"/>
+    </form>
+    </div>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>User Name</th>
+            <th>Password</th>
+            <th>Age</th>
+            <th>登记</th>
+            <th>审核</th>
+
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr  th:each="sale : ${datas}">
+            <th scope="row" th:text="${sale.id}">222</th>
+            <td th:text="${sale.custom}">neo</td>
+            <td th:text="${sale.saledate}">Otto</td>
+            <td th:text="${sale.money}">6</td>
+            <td th:switch="${sale.dengji}">
+                <p th:case="0">未登记</p>
+                <p th:case="1">已登记</p>
+
+            </td>
+           <!-- <td th:text="${sale.dengji}">6</td>-->
+            <td th:text="${sale.shenhe}">6</td>
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div class="form-group">
+
+</div>
+<div th:include="sale/page :: pager" th:remove="tag"></div>
+</body>
+</html>
